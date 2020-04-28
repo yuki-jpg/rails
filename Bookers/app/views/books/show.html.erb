@@ -1,16 +1,81 @@
+
+
+<div class='container'>
+
+  <div class='row'>
+  <div class='col-xs-3'>
 <p id="notice">
  <%=  notice %>
 </p>
 
-<p>
-  <strong>Tittle：</strong>
-  <%= @book.title %>
-</p>
- 
-<p>
-  <strong>Body：</strong>
-  <%= @book.body %>
-</p>
+<h2>User info</h2>
+<table class='table'>
 
-<%= link_to 'Edit', edit_book_path(@book)%>
-<%= link_to 'Back', books_path %>
+<tr><%= attachment_image_tag @books.user, :profile_image,format: 'jpeg', fallback: "no_image.jpg", size: "100x100" %></tr>
+<tr>
+<th>name</th>
+  <th><%= @books.user.name%></th>
+  <th></th>
+</tr>
+<tr>
+  <th>introduction</th>
+  <th><%= @books.user.introduction %></th>
+  <th></th>
+</tr>
+</table>
+<div class='row'>
+  <%= link_to '', edit_user_path(@books.user.id), class:"col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_16205" %>
+</div>
+
+<h2>New book</h2>
+<!-- form_for部分 -->
+<%= form_for(@book) do |f| %>
+<%= render 'layouts/error_messages', model: f.object %>
+<div class="field row">
+
+    <h4>Title</h4>
+    <%= f.text_field :title, class:"form-control" %>
+</div>
+<div class="field row">
+    <h4>Opinion</h4>
+    <%= f.text_area :body, class:"form-control" %>
+</div>
+<div class="actions row">
+    <input type="submit" name="commit" value="Create Book" class="btn btn-primary col-xs-12" data-disable-with="Create Book" />
+  </div>
+
+<% end %>
+
+  </div>
+
+<div class='col-xs-9'>
+
+<h2>Book detail</h2>
+
+<table class='table'>
+  <tr>
+
+
+      <td>
+        <%= link_to user_path(@books.user)do %>
+        <%=  attachment_image_tag @books.user, :profile_image,format: 'jpeg', fallback: "no_image.jpg", size: "40x40" %>
+        <br>
+        <%= @books.user.name %>
+        <% end %>
+      </td>
+       <td>
+        <%= link_to @books.title, book_path(@books) %></td>
+      <td><%= @books.body %></td>
+
+      <% if @books.user == current_user %>
+      <td><%= link_to 'Edit', edit_book_path(@books),class:"btn-sm btn-success edit_book_26264" %></td>
+      <td><%= link_to 'Destroy', book_path(@books),class:"btn-sm btn-danger destroy_book_26264",
+                method: :delete, data: { confirm: 'Are you sure?' } %></td>
+               
+    </tr>
+     <% end %>
+
+</table>
+
+</div>
+

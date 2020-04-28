@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  本のタイトル: MyString
-  本の感想: MyText
+  title: MyString
+  body: MyText
+  user_id: 1
 
 two:
-  本のタイトル: MyString
-  本の感想: MyText
+  title: MyString
+  body: MyText
+  user_id: 1
